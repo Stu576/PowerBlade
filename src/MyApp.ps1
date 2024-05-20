@@ -1,17 +1,20 @@
-﻿$path1 = "C:\Program Files\WindowsPowerShell\Modules\Get-ColourServices\Get-ColourServices.psm1"
-$path2 = "C:\Program Files\WindowsPowerShell\Modules\Get-ScriptProcesses\Get-ScriptProcesses.psm1"
-$path3 = "C:\Program Files\WindowsPowerShell\Modules\take-binout\take-binout.psm1"
+﻿$pathfile1 = "C:\Program Files\WindowsPowerShell\Modules\Get-ColourServices\Get-ColourServices.psm1"
+$pathfile2 = "C:\Program Files\WindowsPowerShell\Modules\Get-ScriptProcesses\Get-ScriptProcesses.psm1"
+$pathfile3 = "C:\Program Files\WindowsPowerShell\Modules\take-binout\take-binout.psm1"
+$pathfolder1 = "C:\Program Files\WindowsPowerShell\Modules\Get-ColourServices\"
+$pathfolder2 = "C:\Program Files\WindowsPowerShell\Modules\Get-ScriptProcesses\"
+$pathfolder3 = "C:\Program Files\WindowsPowerShell\Modules\take-binout\"
 $githubpath1 = "https://github.com/Stu576/PowerBlade/blob/main/src/Modules/Get-ColourServices/Get-ColourServices.psm1"
 $githubpath2 = "https://github.com/Stu576/PowerBlade/blob/main/src/Modules/Get-ScriptProcesses/Get-ScriptProcesses.psm1"
 $githubpath3 = "https://github.com/Stu576/PowerBlade/blob/main/src/Modules/take-binout/take-binout.psm1"
-$path1Result = $false
-$path2Result = $false
-$path3Result = $false
-
+$pathfile1Result = Test-Path $pathfile1
+$pathfile2Result = Test-Path $pathfile2
+$pathfile3Result = Test-Path $pathfile3
+$ExPolicy = Get-ExecutionPolicy
 
 Clear-host
 $continue = $false
-$ModuleVer = 0.01
+$moduleVer = 0.01
 
 $asciiArt = @"
 __________                         __________.__              .___      
@@ -28,33 +31,45 @@ Write-Host $asciiArt -ForegroundColor Cyan
 
 Write-Host "Performing Module Check..."
 
+if ($ExPolicy -ne "Unrestricted") {Write-Warning "Execution Policy is restrictive, it is recommended to be set to 'Unrestricted'. Module installation may fail."}
 
 
-
-if (Test-Path $path1) {
+if ($pathfile1Result -eq $true) {
   Write-Host "Services Module exists..." -ForegroundColor Green
-  $path1Result = $true
 } else {
   Write-Host "Services Module not installed" -ForegroundColor Red
 }
-
-if (Test-Path $path2) {
+if ($pathfile2Result -eq $true) {
   Write-Host "Processes Module exists..." -ForegroundColor Green
-  $path2Result = $true
 } else {
   Write-Host "Processes Module not installed" -ForegroundColor Red
 }
-if (Test-Path $path3) {
+if ($pathfile3Result -eq $true) {
   Write-Host "Bin Module exists..." -ForegroundColor Green
-  $path3Result = $true
 } else {
   Write-Host "Bin Module not installed" -ForegroundColor Red
 }
 
+if (-not $pathfile1Result -or -not $pathfile2Result -or -not $pathfile3Result) {
+  Write-Output "`nPress Enter to install required modules"
+  Read-Host
+
+if ($pathfile1Result -eq $false){Import-Module -Name $githubpath1}
+if ($pathfile2Result -eq $false){Import-Module -Name $githubpath2}
+if ($pathfile3Result -eq $false){Import-Module -Name $githubpath3}
+}
+else
+{
+  Write-Host "`nAll Modules are installed" -ForegroundColor Green
+}
 
 
 
-Write-Output "`n Press Enter to continue..."
+
+
+
+
+Write-Output "`nPress Enter to continue..."
 Read-Host
 Start-Sleep -Seconds 0.6
 

@@ -14,8 +14,13 @@ Current features:
 
 In Progress
 
-1. Install Applications (Tidy winget)
-2. Display Processes (Display all, individual, start and end processes)
+1. Implementing Module checks
+   2. Check file and folder exist
+   3. download from github
+   4. create folder and file
+   5. perform check
+2. Install Applications (Tidy winget)
+3. Display Processes (Display all, individual, start and end processes)
 
 Future Ideas
 
