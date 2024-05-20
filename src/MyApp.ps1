@@ -1,6 +1,12 @@
-﻿
-
-
+﻿$path1 = "C:\Program Files\WindowsPowerShell\Modules\Get-ColourServices\Get-ColourServices.psm1"
+$path2 = "C:\Program Files\WindowsPowerShell\Modules\Get-ScriptProcesses\Get-ScriptProcesses.psm1"
+$path3 = "C:\Program Files\WindowsPowerShell\Modules\take-binout\take-binout.psm1"
+$githubpath1 = "https://github.com/Stu576/PowerBlade/blob/main/src/Modules/Get-ColourServices/Get-ColourServices.psm1"
+$githubpath2 = "https://github.com/Stu576/PowerBlade/blob/main/src/Modules/Get-ScriptProcesses/Get-ScriptProcesses.psm1"
+$githubpath3 = "https://github.com/Stu576/PowerBlade/blob/main/src/Modules/take-binout/take-binout.psm1"
+$path1Result = $false
+$path2Result = $false
+$path3Result = $false
 
 
 Clear-host
@@ -22,12 +28,7 @@ Write-Host $asciiArt -ForegroundColor Cyan
 
 Write-Host "Performing Module Check..."
 
-$path1 = "C:\Program Files\WindowsPowerShell\Modules\Get-ColourServices\Get-ColourServices.psm1"
-$path2 = "C:\Program Files\WindowsPowerShell\Modules\Get-ScriptProcesses\Get-ScriptProcesses.psm1"
-$path3 = "C:\Program Files\WindowsPowerShell\Modules\take-binout\take-binout.psm1"
-$path1Result = $false
-$path2Result = $false
-$path3Result = $false
+
 
 
 if (Test-Path $path1) {
