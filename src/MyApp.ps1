@@ -66,11 +66,7 @@ else
 
 
 
-
-
-
-Write-Output "`nPress Enter to continue..."
-Read-Host
+Write-Host "All checks successful"
 Start-Sleep -Seconds 0.6
 
 Clear-Host
