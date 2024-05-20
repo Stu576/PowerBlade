@@ -14,7 +14,7 @@ __________                         __________.__              .___
  |____|   \____/ \/\_/  \___  >__|  |______  /____(____  /\____ |\___  >
                             \/             \/          \/      \/    \/ 
 
-                             By Stuart Moore
+                             By Stuart Moore V0.01-Alpha
 "@
 
 Write-Host $asciiArt -ForegroundColor Cyan
