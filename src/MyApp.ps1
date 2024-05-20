@@ -72,9 +72,22 @@ $usroptn = Read-Host "Select Option"
 
 Switch ($usroptn)
 {
-1{Get-ColourServices}
-2{Get-ScriptProcesses}
-3{take-binout}
+1{
+
+
+
+  Get-ColourServices}
+2{
+
+
+  Get-ScriptProcesses}
+3{
+  for ($i = 1; $i -le 100; $i++ ) {
+    Write-Progress -Activity "Loading recycling bin module" -Status "$i% Complete:" -PercentComplete $i
+    Start-Sleep -Milliseconds 1
+  }
+
+  take-binout}
 4{Write-Host "Option 4 - WIP - Next Update" -ForegroundColor Red}
 5{Write-Host "Are you sure you want to quit" 
   $areusure = Read-Host "(y=Yes/n=No)"  
