@@ -1,6 +1,6 @@
 ﻿function take-binout
 {
- 
+ $ModuleVer = 0.01
  Clear-host
 $continue1 = $false
 

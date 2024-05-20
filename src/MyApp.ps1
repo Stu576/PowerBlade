@@ -5,6 +5,7 @@
 
 Clear-host
 $continue = $false
+$ModuleVer = 0.01
 
 $asciiArt = @"
 __________                         __________.__              .___      

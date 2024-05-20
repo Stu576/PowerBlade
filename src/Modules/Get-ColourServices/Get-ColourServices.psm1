@@ -1,4 +1,7 @@
 ﻿function Get-ColourServices {
+
+    $ModuleVer = 0.01
+
 Clear-host
 $continue1 = $false
 
