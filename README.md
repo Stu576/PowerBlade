@@ -7,9 +7,9 @@ A SwitchBlade application that runs on PowerShell. More to be added as time goes
 
 
 Current features:
-1. View Services
-2. View Processes
-3. Empty Recycle Bin
+1. View Services (Get-ColourServices)
+2. View Processes (Get-ScriptProcesses)
+3. Empty Recycle Bin (Take-Binout)
 
 
 In Progress
@@ -24,4 +24,5 @@ In Progress
 
 Future Ideas
 
-1. ???
+1. Remove modular requirement and run as single script
+2. ???
