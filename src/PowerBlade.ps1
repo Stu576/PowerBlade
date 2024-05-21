@@ -79,13 +79,20 @@ function Copy-module {
 }
 function Delete-Modules {
   Write-Host "Test"
-
+  Remove-Item -Path $pathfolder1 -Recurse -Force
+  Remove-Item -Path $pathfolder2 -Recurse -Force
+  Remove-Item -Path $pathfolder3 -Recurse -Force
+  Write-Host "All modules have been deleted"
+  Start-Sleep -Seconds 3
 }
 
 
 $pathfile1 = "C:\Program Files\WindowsPowerShell\Modules\Power-Services\Power-Services.psm1"
 $pathfile2 = "C:\Program Files\WindowsPowerShell\Modules\Power-Process\Power-Process.psm1"
 $pathfile3 = "C:\Program Files\WindowsPowerShell\Modules\Power-Bin\Power-Bin.psm1"
+$pathfolder1 = "C:\Program Files\WindowsPowerShell\Modules\Power-Services\"
+$pathfolder2 = "C:\Program Files\WindowsPowerShell\Modules\Power-Process\"
+$pathfolder3 = "C:\Program Files\WindowsPowerShell\Modules\Power-Bin\"
 $pathfile1Result = Test-Path $pathfile1
 $pathfile2Result = Test-Path $pathfile2
 $pathfile3Result = Test-Path $pathfile3
@@ -187,7 +194,7 @@ Write-Host "V$moduleVer-$modulephase"
   }##IF
   else
   {
-    Write-Host "`nAll Modules are installed" -ForegroundColor Green
+    Write-Host "All Modules are installed" -ForegroundColor Green
   }
 
 
@@ -199,12 +206,12 @@ do
 {
   Clear-Host
   Write-Host $asciiArt -ForegroundColor Cyan
-Write-Host "Please Select an Option Below" -ForegroundColor Black -BackgroundColor White
+Write-Host "`nPlease Select an Option Below" -ForegroundColor Black -BackgroundColor White
 Write-Host "1. Display all services"
 Write-Host "2. Display all processes"
 Write-Host "3. Recycling Bin Manager"
 Write-Host "4. Install Applications"
-Write-Host "9. Reinstall Modules"
+Write-Host "9. Reinstall Modules (Run as Admin)"
 Write-Host "10. Exit"
 $usroptn = Read-Host "Select Option"
 
@@ -224,7 +231,14 @@ Power-Bin}
 }
 9{
   Delete-Modules
-Start-Sleep -Seconds 4}
+  Install-Pservice
+  Install-Pprocess
+  Install-PBin
+  Copy-Module
+Write-Host "Install Completed, Restart Terminal for updates to take effect."
+  Read-Host
+
+}
 10{Write-Host "Are you sure you want to quit"
 $areusure = Read-Host "(y=Yes/n=No)"
 if($areusure -eq "y")

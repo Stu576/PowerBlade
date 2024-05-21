@@ -1,6 +1,6 @@
 ﻿function Power-Process
 {
-    $ModuleVer = 0.01
+    $ModuleVer = 0.02
  Clear-host
 $continue1 = $false
 
@@ -28,19 +28,22 @@ Switch($procotp){
 
 
 1{
-Write-Host "Option is broken, fixed in future updated"
-Write-Output "Press Enter to continue..."
+Clear-Host
+    Write-Host "Loading all processes"
+Start-Sleep -Seconds 3
+
+Get-Process
+
 Read-Host
-Start-Sleep -Seconds 0.6  
 }
 
 
 
 2{Clear-Host
-Write-Host "Option is broken, fixed in future updated"
-Write-Output "Press Enter to continue..."
+$usrprocs = Read-Host "Enter the name of a process to search"
+Get-Process -Name $usrprocs
 Read-Host
-Start-Sleep -Seconds 0.6                     }
+}
 
 3{Clear-Host
 Write-Host "Option is broken, fixed in future updated"

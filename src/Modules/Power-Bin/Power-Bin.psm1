@@ -1,6 +1,6 @@
 ﻿function Power-Bin
 {
- $ModuleVer = 0.01
+ $ModuleVer = 0.02
  Clear-host
 $continue1 = $false
 
