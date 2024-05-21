@@ -91,7 +91,7 @@ $ExPolicy = Get-ExecutionPolicy
 Clear-host
 $continue = $false
 $moduleVer = 0.02
-
+$modulephase = "Alpha"
 $asciiArt = @"
 __________                         __________.__              .___      
 \______   \______  _  __ __________\______   \  | _____     __| _/____  
@@ -100,13 +100,13 @@ __________                         __________.__              .___
  |____|   \____/ \/\_/  \___  >__|  |______  /____(____  /\____ |\___  >
                             \/             \/          \/      \/    \/ 
 
-                             By Stuart Moore V0.02-Alpha
+                             By Stuart Moore V$moduleVer-$modulephase
 "@
 
 Write-Host $asciiArt -ForegroundColor Cyan
 
 Write-Host "Performing Module Check..."
-
+Write-Host "V$moduleVer-$modulephase"
   if ($ExPolicy -ne "Unrestricted")
   {
     Write-Warning "Execution Policy is restrictive, it is recommended to be set to 'Unrestricted'. Module installation may fail."
