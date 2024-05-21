@@ -10,17 +10,13 @@ Current features:
 1. View Services (Power-Service)
 2. View Processes (Power-Process)
 3. Empty Recycle Bin (Power-Bin)
-
+4. Installs modules for use outside of the main script (Required currently)
 
 In Progress
 
-1. Implementing Module checks
-   2. Check file and folder exist
-   3. download from github
-   4. create folder and file
-   5. perform check
-2. Install Applications (Tidy winget)
-3. Display Processes (Display all, individual, start and end processes)
+
+1. Install Applications (Tidy winget)
+2. Display Processes (Display all, individual, start and end processes)
 
 Future Ideas
 
