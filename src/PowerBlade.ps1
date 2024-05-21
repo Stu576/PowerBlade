@@ -89,18 +89,18 @@ Switch ($usroptn)
 
 
 
-  Get-ColourServices}
+  Power-Service}
 2{
 
 
-  Get-ScriptProcesses}
+  Power-Process}
 3{
   for ($i = 1; $i -le 100; $i++ ) {
     Write-Progress -Activity "Loading recycling bin module" -Status "$i% Complete:" -PercentComplete $i
     Start-Sleep -Milliseconds 1
   }
 
-  take-binout}
+  Power-Bin}
 4{Write-Host "Option 4 - WIP - Next Update" -ForegroundColor Red}
 5{Write-Host "Are you sure you want to quit" 
   $areusure = Read-Host "(y=Yes/n=No)"  
