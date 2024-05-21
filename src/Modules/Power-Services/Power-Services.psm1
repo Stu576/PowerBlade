@@ -1,4 +1,4 @@
-﻿function Get-ColourServices {
+﻿function Power-Services {
 
     $ModuleVer = 0.01
 

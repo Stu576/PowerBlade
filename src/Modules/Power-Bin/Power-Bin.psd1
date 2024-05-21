@@ -1,8 +1,8 @@
 @{
-    ModuleVersion = '0.01'
+    ModuleVersion = '0.02'
     Author = 'Stuart Moore'
-    FunctionsToExport = 'Take-Binout'
+    FunctionsToExport = 'Power-Bin'
     PowerShellVersion = '5.1'
     Description = 'A module to manage bins.'
-    RootModule = 'Take-Binout.psm1'
+    RootModule = 'Power-Bin.psm1'
 }

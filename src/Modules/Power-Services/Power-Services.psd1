@@ -1,8 +1,8 @@
 @{
     ModuleVersion = '0.01'
     Author = 'Stuart Moore'
-    FunctionsToExport = 'Get-ColourServices'
+    FunctionsToExport = 'Power-Services'
     PowerShellVersion = '5.1'
     Description = 'A module to manage services.'
-    RootModule = 'Get-ColourServices.psm1'
+    RootModule = 'Power-Services.psm1'
 }

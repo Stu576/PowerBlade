@@ -1,8 +1,8 @@
 @{
     ModuleVersion = '0.01'
     Author = 'Stuart Moore'
-    FunctionsToExport = 'Get-ColourServices'
+    FunctionsToExport = 'Power-Process'
     PowerShellVersion = '5.1'
     Description = 'A module to manage Processes.'
-    RootModule = 'Get-ScriptProcesses.psm1'
+    RootModule = 'Power-Process.psm1'
 }

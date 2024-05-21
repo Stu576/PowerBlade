@@ -1,4 +1,4 @@
-﻿function take-binout
+﻿function Power-Bin
 {
  $ModuleVer = 0.01
  Clear-host

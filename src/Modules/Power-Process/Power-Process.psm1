@@ -1,4 +1,4 @@
-﻿function Get-ScriptProcesses
+﻿function Power-Process
 {
     $ModuleVer = 0.01
  Clear-host
