@@ -139,3 +139,5 @@ Start-Sleep -Seconds 0.6
 while ($continue1 -eq $false)
 
 } #function
+
+Export-ModuleMember -Function Power-Services

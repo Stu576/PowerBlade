@@ -1,12 +1,92 @@
-$pathfile1 = "C:\Program Files\WindowsPowerShell\Modules\Get-ColourServices\Power-Service.psm1"
-$pathfile2 = "C:\Program Files\WindowsPowerShell\Modules\Get-ScriptProcesses\Power-Process.psm1"
-$pathfile3 = "C:\Program Files\WindowsPowerShell\Modules\take-binout\Power-Bin.psm1"
+function Test-IsAdmin {
+  $currentUser = [Security.Principal.WindowsIdentity]::GetCurrent()
+  $currentPrincipal = New-Object Security.Principal.WindowsPrincipal($currentUser)
+  return $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+}
+
+function Install-Pservice
+{
+  $extractPath = "C:\temp\"
+  $fileUrl1 = "https://github.com/Stu576/PowerBlade/releases/download/0.02/Power-Services.zip"
+  $zipFilePath1 = "C:\temp\Power-Services.zip"
+  if (-not (Test-Path -Path $extractPath)) {
+    New-Item -Path $extractPath -ItemType Directory -Force
+    Clear-Host
+  }
+  Write-Host "Downloading Power Services"
+  Start-Sleep -Seconds 1
+  Invoke-WebRequest -Uri $fileUrl1 -OutFile $zipFilePath1
+  Write-Host "Extracting Power Services"
+  Start-Sleep -Seconds 3
+  Add-Type -AssemblyName System.IO.Compression.FileSystem
+  [System.IO.Compression.ZipFile]::ExtractToDirectory($zipFilePath1, $extractPath)
+
+
+}
+
+function Install-Pprocess
+{
+  $extractPath = "C:\temp\"
+
+  $fileUrl2 = "https://github.com/Stu576/PowerBlade/releases/download/0.02/Power-Process.zip"
+  $zipFilePath2 = "C:\temp\Power-Process.zip"
+  if (-not (Test-Path -Path $extractPath)) {
+    New-Item -Path $extractPath -ItemType Directory -Force
+  }
+  Write-Host "Downloading Power Process"
+  Start-Sleep -Seconds 1
+  Invoke-WebRequest -Uri $fileUrl2 -OutFile $zipFilePath2
+  Write-Host "Extracting Power Process"
+  Start-Sleep -Seconds 3
+  Add-Type -AssemblyName System.IO.Compression.FileSystem
+  [System.IO.Compression.ZipFile]::ExtractToDirectory($zipFilePath2, $extractPath)
+
+
+
+}
+function Install-PBin
+{
+  $extractPath = "C:\temp\"
+
+  $fileUrl3 = "https://github.com/Stu576/PowerBlade/releases/download/0.02/Power-Bin.zip"
+  $zipFilePath3 = "C:\temp\Power-Bin.zip"
+  if (-not (Test-Path -Path $extractPath)) {
+    New-Item -Path $extractPath -ItemType Directory -Force
+    clear-host
+  }
+  Write-Host "Downloading Power Bin"
+  Start-Sleep -Seconds 1
+  Invoke-WebRequest -Uri $fileUrl3 -OutFile $zipFilePath3
+  Write-Host "Extracting Power Bin"
+  Start-Sleep -Seconds 3
+  Add-Type -AssemblyName System.IO.Compression.FileSystem
+  [System.IO.Compression.ZipFile]::ExtractToDirectory($zipFilePath3, $extractPath)
+
+}
+
+function Copy-module {
+  $sourcePath = "C:\temp"
+  $destinationPath = "C:\Program Files\WindowsPowerShell\Modules"
+  $directories = Get-ChildItem -Path $sourcePath -Directory
+
+  foreach ($dir in $directories) {
+    $sourceDir = $dir.FullName
+    $destDir = Join-Path -Path $destinationPath -ChildPath $dir.Name
+    Copy-Item -Path $sourceDir -Destination $destDir -Recurse
+  }
+  Start-Sleep -Seconds 5
+  Remove-Item $sourcePath -Recurse
+
+}
+
+$cmd1test = $false
+$cmd1test = Get-Command Power-Services -ErrorAction Ignore
+$pathfile1 = "C:\Program Files\WindowsPowerShell\Modules\Power-Services\Power-Services.psm1"
+$pathfile2 = "C:\Program Files\WindowsPowerShell\Modules\Power-Process\Power-Process.psm1"
+$pathfile3 = "C:\Program Files\WindowsPowerShell\Modules\Power-Bin\Power-Bin.psm1"
 $pathfolder1 = "C:\Program Files\WindowsPowerShell\Modules\Power-Service\"
 $pathfolder2 = "C:\Program Files\WindowsPowerShell\Modules\Power-Process\"
 $pathfolder3 = "C:\Program Files\WindowsPowerShell\Modules\Power-Bin\"
-$githubpath1 = "https://github.com/Stu576/PowerBlade/releases/download/0.02/Power-Service.zip"
-$githubpath2 = "https://github.com/Stu576/PowerBlade/releases/download/0.02/Power-Process.zip"
-$githubpath3 = "https://github.com/Stu576/PowerBlade/releases/download/0.02/Power-Bin.zip"
 $pathfile1Result = Test-Path $pathfile1
 $pathfile2Result = Test-Path $pathfile2
 $pathfile3Result = Test-Path $pathfile3
@@ -31,44 +111,89 @@ Write-Host $asciiArt -ForegroundColor Cyan
 
 Write-Host "Performing Module Check..."
 
-if ($ExPolicy -ne "Unrestricted") {Write-Warning "Execution Policy is restrictive, it is recommended to be set to 'Unrestricted'. Module installation may fail."}
+  if ($ExPolicy -ne "Unrestricted")
+  {
+    Write-Warning "Execution Policy is restrictive, it is recommended to be set to 'Unrestricted'. Module installation may fail."
+  }
 
 
-if ($pathfile1Result -eq $true) {
-  Write-Host "Services Module exists..." -ForegroundColor Green
-} else {
-  Write-Host "Services Module not installed" -ForegroundColor Red
-}
-if ($pathfile2Result -eq $true) {
-  Write-Host "Processes Module exists..." -ForegroundColor Green
-} else {
-  Write-Host "Processes Module not installed" -ForegroundColor Red
-}
-if ($pathfile3Result -eq $true) {
-  Write-Host "Bin Module exists..." -ForegroundColor Green
-} else {
-  Write-Host "Bin Module not installed" -ForegroundColor Red
-}
-
-if (-not $pathfile1Result -or -not $pathfile2Result -or -not $pathfile3Result) {
-  Write-Output "`nPress Enter to install required modules"
-  Read-Host
-
-if ($pathfile1Result -eq $false){Import-Module -Name $githubpath1}
-if ($pathfile2Result -eq $false){Import-Module -Name $githubpath2}
-if ($pathfile3Result -eq $false){Import-Module -Name $githubpath3}
-}
-else
-{
-  Write-Host "`nAll Modules are installed" -ForegroundColor Green
-}
-
+  if ($pathfile1Result -eq $true)
+  {
+    Write-Host "Services Module exists..." -ForegroundColor Green
+  }
+  else
+  {
+    Write-Host "Services Module not installed" -ForegroundColor Red
+  }
+  if ($pathfile2Result -eq $true)
+  {
+    Write-Host "Processes Module exists..." -ForegroundColor Green
+  }
+  else
+  {
+    Write-Host "Processes Module not installed" -ForegroundColor Red
+  }
+  if ($pathfile3Result -eq $true)
+  {
+    Write-Host "Bin Module exists..." -ForegroundColor Green
+  }
+  else
+  {
+    Write-Host "Bin Module not installed" -ForegroundColor Red
+  }
 
 
 
-Write-Host "All checks successful"
-Start-Sleep -Seconds 0.6
+  if (-not $pathfile1Result -or -not $pathfile2Result -or -not $pathfile3Result)
+  {
 
+    if (-not (Test-IsAdmin))
+    {
+      Write-Warning "CLOSE A RERUN AS ADMINISTRATOR, MODULE INSTALL WILL FAIL REGARDLESS"
+      Write-Host "`nPress Enter to quit" -ForegroundColor White
+      Read-Host
+      exit 1
+    }
+
+    Write-Output "`nPress Enter to install required modules"
+    Read-Host
+
+    if ($pathfile1Result -eq $false)
+    {
+      Install-Pservice
+
+    }
+    if ($pathfile2Result -eq $false)
+    {
+      Install-PProcess
+
+    }
+    if ($pathfile3Result -eq $false)
+    {
+      Install-PBin
+
+    }
+    Copy-module
+
+    Write-Host "All modules have been successfully installed" -ForegroundColor Green
+    Write-Host "You must restart the terminal window before continuing" -ForegroundColor Green
+    Write-Host "You do not need to run as admin going forward" -ForegroundColor Green
+
+    Write-Host "`nPress Enter to quit" -ForegroundColor White
+    Read-Host
+    Write-Host "`nQuitting" -ForegroundColor White
+    exit
+
+
+  }##IF
+  else
+  {
+    Write-Host "`nAll Modules are installed" -ForegroundColor Green
+  }
+
+
+  Write-Host "All checks successful"
+  Start-Sleep -Seconds 0.6
 Clear-Host
 
 do
@@ -89,7 +214,7 @@ Switch ($usroptn)
 
 
 
-  Power-Service}
+  Power-Services}
 2{
 
 
@@ -111,6 +236,7 @@ Switch ($usroptn)
   }
  
                           }
+default {"Option is not recognised, select a valid number"}
 }
 
 
