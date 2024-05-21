@@ -1,5 +1,5 @@
 @{
-    ModuleVersion = '0.01'
+    ModuleVersion = '0.02'
     Author = 'Stuart Moore'
     FunctionsToExport = 'Power-Process'
     PowerShellVersion = '5.1'
