@@ -1,4 +1,4 @@
-# PowerBlade V0.02-Alpha
+# PowerBlade V0.02-alpha
 
 ![PowerBlade!](images/PB1.png)
 
