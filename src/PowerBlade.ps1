@@ -77,7 +77,10 @@ function Copy-module {
   Remove-Item $sourcePath -Recurse
 
 }
+function Delete-Modules {
+  Write-Host "Test"
 
+}
 
 
 $pathfile1 = "C:\Program Files\WindowsPowerShell\Modules\Power-Services\Power-Services.psm1"
@@ -194,45 +197,45 @@ Clear-Host
 
 do
 {
-Write-Host $asciiArt -ForegroundColor Cyan
+  Clear-Host
+  Write-Host $asciiArt -ForegroundColor Cyan
 Write-Host "Please Select an Option Below" -ForegroundColor Black -BackgroundColor White
 Write-Host "1. Display all services"
 Write-Host "2. Display all processes"
 Write-Host "3. Recycling Bin Manager"
 Write-Host "4. Install Applications"
-Write-Host "5. Exit"
+Write-Host "9. Reinstall Modules"
+Write-Host "10. Exit"
 $usroptn = Read-Host "Select Option"
 
 
 Switch ($usroptn)
 {
 1{
-
-
-
   Power-Services}
 2{
-
-
   Power-Process}
 3{
   for ($i = 1; $i -le 100; $i++ ) {
     Write-Progress -Activity "Loading recycling bin module" -Status "$i% Complete:" -PercentComplete $i
-    Start-Sleep -Milliseconds 1
-  }
-
-  Power-Bin}
-4{Write-Host "Option 4 - WIP - Next Update" -ForegroundColor Red}
-5{Write-Host "Are you sure you want to quit" 
-  $areusure = Read-Host "(y=Yes/n=No)"  
-  if($areusure -eq "y")
-  {
+    Start-Sleep -Milliseconds 1}
+Power-Bin}
+4{Write-Host "Option 4 - WIP - Next Update" -ForegroundColor Red
+}
+9{
+  Delete-Modules
+Start-Sleep -Seconds 4}
+10{Write-Host "Are you sure you want to quit"
+$areusure = Read-Host "(y=Yes/n=No)"
+if($areusure -eq "y")
+{
   $continue = $true
-  
-  }
- 
-                          }
-default {"Option is not recognised, select a valid number"}
+}
+
+}
+
+default {
+  "Option is not recognised, select a valid number"}
 }
 
 
