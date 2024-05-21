@@ -191,7 +191,7 @@ Write-Host "V$moduleVer-$modulephase"
     exit
 
 
-  }##IF
+  }#IF
   else
   {
     Write-Host "All Modules are installed" -ForegroundColor Green
