@@ -79,14 +79,11 @@ function Copy-module {
 
 }
 
-$cmd1test = $false
-$cmd1test = Get-Command Power-Services -ErrorAction Ignore
+
+
 $pathfile1 = "C:\Program Files\WindowsPowerShell\Modules\Power-Services\Power-Services.psm1"
 $pathfile2 = "C:\Program Files\WindowsPowerShell\Modules\Power-Process\Power-Process.psm1"
 $pathfile3 = "C:\Program Files\WindowsPowerShell\Modules\Power-Bin\Power-Bin.psm1"
-$pathfolder1 = "C:\Program Files\WindowsPowerShell\Modules\Power-Service\"
-$pathfolder2 = "C:\Program Files\WindowsPowerShell\Modules\Power-Process\"
-$pathfolder3 = "C:\Program Files\WindowsPowerShell\Modules\Power-Bin\"
 $pathfile1Result = Test-Path $pathfile1
 $pathfile2Result = Test-Path $pathfile2
 $pathfile3Result = Test-Path $pathfile3
