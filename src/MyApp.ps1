@@ -1,12 +1,12 @@
-﻿$pathfile1 = "C:\Program Files\WindowsPowerShell\Modules\Get-ColourServices\Get-ColourServices.psm1"
+$pathfile1 = "C:\Program Files\WindowsPowerShell\Modules\Get-ColourServices\Get-ColourServices.psm1"
 $pathfile2 = "C:\Program Files\WindowsPowerShell\Modules\Get-ScriptProcesses\Get-ScriptProcesses.psm1"
 $pathfile3 = "C:\Program Files\WindowsPowerShell\Modules\take-binout\take-binout.psm1"
 $pathfolder1 = "C:\Program Files\WindowsPowerShell\Modules\Get-ColourServices\"
 $pathfolder2 = "C:\Program Files\WindowsPowerShell\Modules\Get-ScriptProcesses\"
 $pathfolder3 = "C:\Program Files\WindowsPowerShell\Modules\take-binout\"
-$githubpath1 = "https://github.com/Stu576/PowerBlade/blob/main/src/Modules/Get-ColourServices/Get-ColourServices.psm1"
-$githubpath2 = "https://github.com/Stu576/PowerBlade/blob/main/src/Modules/Get-ScriptProcesses/Get-ScriptProcesses.psm1"
-$githubpath3 = "https://github.com/Stu576/PowerBlade/blob/main/src/Modules/take-binout/take-binout.psm1"
+$githubpath1 = "https://github.com/Stu576/PowerBlade/releases/download/0.01/Get-ColourServices.zip"
+$githubpath2 = "https://github.com/Stu576/PowerBlade/releases/download/0.01/Get-ScriptProcesses.zip"
+$githubpath3 = "https://github.com/Stu576/PowerBlade/releases/download/0.01/take-binout.zip"
 $pathfile1Result = Test-Path $pathfile1
 $pathfile2Result = Test-Path $pathfile2
 $pathfile3Result = Test-Path $pathfile3
@@ -66,11 +66,7 @@ else
 
 
 
-
-
-
-Write-Output "`nPress Enter to continue..."
-Read-Host
+Write-Host "All checks successful"
 Start-Sleep -Seconds 0.6
 
 Clear-Host
