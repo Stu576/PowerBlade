@@ -1,8 +1,7 @@
-function Test-IsAdmin {
+function Test-IsAdmin{
   $currentUser = [Security.Principal.WindowsIdentity]::GetCurrent()
   $currentPrincipal = New-Object Security.Principal.WindowsPrincipal($currentUser)
-  return $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-}
+  return $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator) }
 
 function Install-Pservice
 {
