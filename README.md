@@ -15,8 +15,9 @@ Current features:
 In Progress
 
 
-1. Install Applications (Tidy winget)
-2. Display Processes (Display all, individual, start and end processes)
+1. Hyper-V Module (Install Hyper-V, Create VMs etc)
+2. Install Applications (Tidy winget)
+3Display Processes (Display all, individual, start and end processes)
 
 Future Ideas
 

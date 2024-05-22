@@ -63,6 +63,27 @@ function Install-PBin
 
 }
 
+function Install-PHyperV{
+  $extractPath = "C:\temp\"
+
+  $fileUrl4 = "https://github.com/Stu576/PowerBlade/releases/download/0.02/Power-HyperV.zip"
+  $zipFilePath4 = "C:\temp\Power-HyperV.zip"
+  if (-not (Test-Path -Path $extractPath)) {
+    New-Item -Path $extractPath -ItemType Directory -Force
+    clear-host
+  }
+  Write-Host "Downloading Power HyperV"
+  Start-Sleep -Seconds 1
+  Invoke-WebRequest -Uri $fileUrl3 -OutFile $zipFilePath3
+  Write-Host "Extracting Power HyperV"
+  Start-Sleep -Seconds 3
+  Add-Type -AssemblyName System.IO.Compression.FileSystem
+  [System.IO.Compression.ZipFile]::ExtractToDirectory($zipFilePath3, $extractPath)
+
+
+}
+
+
 function Copy-module {
   $sourcePath = "C:\temp"
   $destinationPath = "C:\Program Files\WindowsPowerShell\Modules"
@@ -90,12 +111,15 @@ function Delete-Modules {
 $pathfile1 = "C:\Program Files\WindowsPowerShell\Modules\Power-Services\Power-Services.psm1"
 $pathfile2 = "C:\Program Files\WindowsPowerShell\Modules\Power-Process\Power-Process.psm1"
 $pathfile3 = "C:\Program Files\WindowsPowerShell\Modules\Power-Bin\Power-Bin.psm1"
+$pathfile4 = "C:\Program Files\WindowsPowerShell\Modules\Power-HyperV\Power-HyperV.psm1"
 $pathfolder1 = "C:\Program Files\WindowsPowerShell\Modules\Power-Services\"
 $pathfolder2 = "C:\Program Files\WindowsPowerShell\Modules\Power-Process\"
 $pathfolder3 = "C:\Program Files\WindowsPowerShell\Modules\Power-Bin\"
+$pathfolder4 = "C:\Program Files\WindowsPowerShell\Modules\HyperV\"
 $pathfile1Result = Test-Path $pathfile1
 $pathfile2Result = Test-Path $pathfile2
 $pathfile3Result = Test-Path $pathfile3
+$pathfile4Result = Test-Path $pathfile4
 $ExPolicy = Get-ExecutionPolicy
 
 Clear-host
@@ -147,10 +171,17 @@ Write-Host "V$moduleVer-$modulephase"
   {
     Write-Host "Bin Module not installed" -ForegroundColor Red
   }
+if ($pathfile4Result -eq $true)
+{
+  Write-Host "Hyper-V Module exists..." -ForegroundColor Green
+}
+else
+{
+  Write-Host "Hyper-V Module not installed" -ForegroundColor Red
+}
 
 
-
-  if (-not $pathfile1Result -or -not $pathfile2Result -or -not $pathfile3Result)
+  if (-not $pathfile1Result -or -not $pathfile2Result -or -not $pathfile3Result -or -not $pathfile4Result)
   {
 
     if (-not (Test-IsAdmin))
@@ -177,6 +208,11 @@ Write-Host "V$moduleVer-$modulephase"
     if ($pathfile3Result -eq $false)
     {
       Install-PBin
+
+    }
+    if ($pathfile4Result -eq $false)
+    {
+      Install-PHyperV
 
     }
     Copy-module
@@ -211,6 +247,7 @@ Write-Host "1. Display all services"
 Write-Host "2. Display all processes"
 Write-Host "3. Recycling Bin Manager"
 Write-Host "4. Install Applications"
+  Write-Host "5. Manage Hyper-V (Administrator)"
 Write-Host "9. Reinstall Modules (Run as Admin)"
 Write-Host "10. Exit"
 $usroptn = Read-Host "Select Option"
@@ -229,11 +266,15 @@ Switch ($usroptn)
 Power-Bin}
 4{Write-Host "Option 4 - WIP - Next Update" -ForegroundColor Red
 }
+5{
+  Power-HyperV
+}
 9{
   Delete-Modules
   Install-Pservice
   Install-Pprocess
   Install-PBin
+  Install-PHyperV
   Copy-Module
 Write-Host "Install Completed, Restart Terminal for updates to take effect."
   Read-Host
