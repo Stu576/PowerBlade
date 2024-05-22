@@ -20,13 +20,15 @@ do
 
             1{
                 Clear-Host
+$virtulisationcheck = Get-ComputerInfo -property "HyperV*"
 
 If($Hypervstatus.Status -eq "Enabled")
 {
 Write-Warning "Hyper-V is installed"
 Read-Host "Press Enter to return to menu"
 }
-else{Write-Host "Hyper-V is not installed" -Foregroundcolor Green
+elseif ($virtulisationcheck.HyperVRequirementVirtualizationFirmwareEnabled -eq "True")
+{Write-Host "Hyper-V is not installed" -Foregroundcolor Green
 
 Write-Host "Starting Hyper-V installation"
 Start-Sleep -Seconds 3
