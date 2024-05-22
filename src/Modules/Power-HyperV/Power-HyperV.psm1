@@ -20,8 +20,24 @@ do
 
             1{
                 Clear-Host
-                Write-Host "Install Hyper-V"
-                Read-Host
+
+If($Hypervstatus.Status -eq "Enabled")
+{
+Write-Warning "Hyper-V is installed"
+Read-Host "Press Enter to return to menu"
+}
+else{Write-Host "Hyper-V is not installed" -Foregroundcolor Green
+
+Write-Host "Starting Hyper-V installation"
+Start-Sleep -Seconds 3
+Write-Host "A restart will be required, ensure all work is saved before continuing"
+Read-Host "Press Enter to continue"
+
+Install-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
+
+}
+
+
             }
 
 
