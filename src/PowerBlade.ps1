@@ -171,17 +171,17 @@ Write-Host "V$moduleVer-$modulephase"
   {
     Write-Host "Bin Module not installed" -ForegroundColor Red
   }
-if ($pathfile4Result -eq $true)
-{
-  Write-Host "Hyper-V Module exists..." -ForegroundColor Green
-}
-else
-{
-  Write-Host "Hyper-V Module not installed" -ForegroundColor Red
-}
+#if ($pathfile4Result -eq $true)
+#{
+#  Write-Host "Hyper-V Module exists..." -ForegroundColor Green
+#}
+#else
+#{
+#  Write-Host "Hyper-V Module not installed" -ForegroundColor Red
+#}
 
 
-  if (-not $pathfile1Result -or -not $pathfile2Result -or -not $pathfile3Result -or -not $pathfile4Result)
+  if (-not $pathfile1Result -or -not $pathfile2Result -or -not $pathfile3Result) #-or -not $pathfile4Result#)
   {
 
     if (-not (Test-IsAdmin))
