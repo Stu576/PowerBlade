@@ -2,6 +2,9 @@ functon Power-Hyper-V{
 
 $Hypervstatus = Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
 
+#Perform checks here
+
+#Get request
 
 do
     {
@@ -72,4 +75,10 @@ Install-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
         } #Switch
     }
     while ($continue1 -eq $false)
+}
+
+
+Function Hyper-V-Check{
+
+    $Hypervstatus = Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
 }
