@@ -54,7 +54,10 @@ function Power-Hyper-V{
 
             3{Clear-Host
             Write-Host "Create Windows 10 VM"
-            Read-Host                  }
+            Read-Host
+
+
+            }
 
             4{Clear-Host
             Write-Host "Create Windows 11 VM"
