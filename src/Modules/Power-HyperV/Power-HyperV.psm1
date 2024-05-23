@@ -1,6 +1,30 @@
+Function Check-HyperV
+{
+
+    If ($Hypervstatus.Status -eq "Enabled")
+    {
+        Write-Warning "Hyper-V is installed"
+        Read-Host "Press Enter to return to menu"
+    }
+    elseif ($virtulisationcheck.HyperVRequirementVirtualizationFirmwareEnabled -eq "True")
+    {
+        Write-Host "Hyper-V is not installed" -Foregroundcolor Green
+
+        Write-Host "Starting Hyper-V installation"
+        Start-Sleep -Seconds 3
+        Write-Host "A restart will be required, ensure all work is saved before continuing"
+        Read-Host "Press Enter to continue"
+
+    }
+}
+
 functon Power-Hyper-V{
 
 $Hypervstatus = Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
+$LinuxMintURL = "https://mirrors.ukfast.co.uk/sites/linuxmint.com/isos/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso"
+$LinuxKaliURL = "https://cdimage.kali.org/kali-2024.1/kali-linux-2024.1-live-amd64.iso"
+$LinuxPOPOSURL = "https://iso.pop-os.org/22.04/amd64/intel/41/pop-os_22.04_amd64_intel_41.iso"
+
 
 #Perform checks here
 
@@ -23,27 +47,18 @@ do
 
             1{
                 Clear-Host
-$virtulisationcheck = Get-ComputerInfo -property "HyperV*"
 
-If($Hypervstatus.Status -eq "Enabled")
-{
-Write-Warning "Hyper-V is installed"
-Read-Host "Press Enter to return to menu"
-}
-elseif ($virtulisationcheck.HyperVRequirementVirtualizationFirmwareEnabled -eq "True")
-{Write-Host "Hyper-V is not installed" -Foregroundcolor Green
-
-Write-Host "Starting Hyper-V installation"
-Start-Sleep -Seconds 3
-Write-Host "A restart will be required, ensure all work is saved before continuing"
-Read-Host "Press Enter to continue"
+                Write-Host "Starting Hyper-V installation"
+                Start-Sleep -Seconds 3
+                Write-Host "A restart will be required, ensure all work is saved before continuing"
+                Read-Host "Press Enter to continue"
 
 Install-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
 
 }
 
 
-            }
+
 
 
 
@@ -75,10 +90,4 @@ Install-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
         } #Switch
     }
     while ($continue1 -eq $false)
-}
-
-
-Function Hyper-V-Check{
-
-    $Hypervstatus = Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
 }
