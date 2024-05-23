@@ -52,7 +52,8 @@ do
                 Start-Sleep -Seconds 3
                 Write-Host "A restart will be required, ensure all work is saved before continuing"
                 Read-Host "Press Enter to continue"
-
+                Hyper-V-InstallCheck
+                Hyper-V-SpecCheck
 Install-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
 
 }
@@ -90,4 +91,49 @@ Install-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
         } #Switch
     }
     while ($continue1 -eq $false)
+}
+
+
+Function Hyper-V-InstallCheck{
+
+    $Hypervstatus = Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
+
+    clear-host
+    if($Hypervstatus.State -eq $false){Write-Host "Hyper-V's status is" $Hypervstatus.State -ForegroundColor Green}
+    else{Write-Host "Hyper-V's status is" $Hypervstatus.State -ForegroundColor Red}
+
+
+
+    Write-Host "Starting Requirement Checks.."
+
+}
+
+function Hyper-V-SpecCheck{
+    $virtulisationcheck = Get-ComputerInfo -property "HyperV*"
+    if($virtulisationcheck.HyperVRequirementDataExecutionPreventionAvailable -eq $True){Write-Host "Hyper-V Requirement Data Execution Prevention Available =" $virtulisationcheck.HyperVRequirementDataExecutionPreventionAvailable -Foregroundcolor Green}
+    else{Write-Host "Hyper-V Requirement Data Execution Prevention Available = " $virtulisationcheck.HyperVRequirementDataExecutionPreventionAvailable -Foregroundcolor Red}
+
+    if($virtulisationcheck.HyperVRequirementSecondLevelAddressTranslation -eq $True){Write-Host "Hyper-V Requirement Second Level Address Translation =" $virtulisationcheck.HyperVRequirementSecondLevelAddressTranslation -Foregroundcolor Green}
+    else{Write-Host "Hyper-V Requirement Second Level Address Translation = " $virtulisationcheck.HyperVRequirementSecondLevelAddressTranslation -Foregroundcolor Red}
+    $virtulisationcheck = Get-ComputerInfo -property "HyperV*"
+    if($virtulisationcheck.HyperVRequirementVirtualizationFirmwareEnabled -eq $True){Write-Host "Hyper-V Requirement Virtualization Firmware Enabled =" $virtulisationcheck.HyperVRequirementVirtualizationFirmwareEnabled -Foregroundcolor Green}
+    else{Write-Host "Hyper-V Requirement Virtualization Firmware Enabled = " $virtulisationcheck.HyperVRequirementVirtualizationFirmwareEnabled -Foregroundcolor Red}
+
+    if($virtulisationcheck.HyperVRequirementVMMonitorModeExtensions -eq $True){Write-Host "Hyper-V Requirement VM Monitor Mode Extensions =" $virtulisationcheck.HyperVRequirementVMMonitorModeExtensions -Foregroundcolor Green}
+    else{Write-Host "Hyper-V Requirement VM Monitor Mode Extensions = " $virtulisationcheck.HyperVRequirementVMMonitorModeExtensions -Foregroundcolor Red}
+
+    if($virtulisationcheck.HyperVRequirementDataExecutionPreventionAvailable -eq $True -and
+            $virtulisationcheck.HyperVRequirementSecondLevelAddressTranslation -eq $True -and
+            $virtulisationcheck.HyperVRequirementVirtualizationFirmwareEnabled -eq $True -and
+            $virtulisationcheck.HyperVRequirementVMMonitorModeExtensions -eq $True){
+
+        Read-Host "Press Enter to begin installation"}
+    else{
+        Write-Warning "Minimum Requirements have not been met, please review the above and resolve before trying again"
+        Read-Host "Press enter to return to menu"
+
+    }
+
+
+
 }
