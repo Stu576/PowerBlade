@@ -1,45 +1,30 @@
-Function Check-HyperV
-{
 
-    If ($Hypervstatus.Status -eq "Enabled")
+Power-Hyper-V
+
+
+function Power-Hyper-V{
+
+    $Hypervstatus = Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
+    $LinuxMintURL = "https://mirrors.ukfast.co.uk/sites/linuxmint.com/isos/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso"
+    $LinuxKaliURL = "https://cdimage.kali.org/kali-2024.1/kali-linux-2024.1-live-amd64.iso"
+    $LinuxPOPOSURL = "https://iso.pop-os.org/22.04/amd64/intel/41/pop-os_22.04_amd64_intel_41.iso"
+
+
+    #Perform checks here
+
+    #Get request
+    $continue1 =$false
+    do
     {
-        Write-Warning "Hyper-V is installed"
-        Read-Host "Press Enter to return to menu"
-    }
-    elseif ($virtulisationcheck.HyperVRequirementVirtualizationFirmwareEnabled -eq "True")
-    {
-        Write-Host "Hyper-V is not installed" -Foregroundcolor Green
-
-        Write-Host "Starting Hyper-V installation"
-        Start-Sleep -Seconds 3
-        Write-Host "A restart will be required, ensure all work is saved before continuing"
-        Read-Host "Press Enter to continue"
-
-    }
-}
-
-functon Power-Hyper-V{
-
-$Hypervstatus = Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
-$LinuxMintURL = "https://mirrors.ukfast.co.uk/sites/linuxmint.com/isos/stable/21.3/linuxmint-21.3-cinnamon-64bit.iso"
-$LinuxKaliURL = "https://cdimage.kali.org/kali-2024.1/kali-linux-2024.1-live-amd64.iso"
-$LinuxPOPOSURL = "https://iso.pop-os.org/22.04/amd64/intel/41/pop-os_22.04_amd64_intel_41.iso"
-
-
-#Perform checks here
-
-#Get request
-
-do
-    {
-
+        Clear-Host
         Write-Host "Please Select an Option Below" -ForegroundColor Black -BackgroundColor White
         Write-Host "1. Install Hyper-V"
         Write-Host "2. Create Custom VM"
         Write-Host "3. Create Windows 10 VM"
         Write-Host "4. Create Windows 11 VM"
         Write-Host "5. Create Linux VM"
-        Write-Host "6. Back to Main Menu"
+        Write-Host "6. Enable Nested Virtualisation"
+        Write-Host "7. Back to Main Menu"
         $procotp = Read-Host "Select an Option"
 
         Switch($procotp){
@@ -54,9 +39,8 @@ do
                 Read-Host "Press Enter to continue"
                 Hyper-V-InstallCheck
                 Hyper-V-SpecCheck
-Install-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
 
-}
+            }
 
 
 
@@ -83,6 +67,13 @@ Install-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
             Read-Host  }
 
             6{Clear-Host
+            Write-Host "Nested Virtusalisation is a Hyper-V feature that allows for the CPU's virtualisation capabilities"
+            Write-Host "to be pass through to a virtual machine. This means you can run Hyper-V within a VM."
+            Write-Host "`nEnter the name of the Virtual Machine you want to enable nested virtualisation for."
+            Read-Host "Press Enter to Continue"
+            Hyper-V-NVHost}
+
+            7{Clear-Host
             "Returning to Main Menu"
             Start-Sleep -Seconds 2
             $continue1 = $true }
@@ -94,6 +85,11 @@ Install-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
 }
 
 
+
+
+function Hyper-V-SpecCheck{
+
+}
 Function Hyper-V-InstallCheck{
 
     $Hypervstatus = Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
@@ -107,33 +103,24 @@ Function Hyper-V-InstallCheck{
     Write-Host "Starting Requirement Checks.."
 
 }
+Function Hyper-V-NVHost{
+    Clear-Host
 
-function Hyper-V-SpecCheck{
-    $virtulisationcheck = Get-ComputerInfo -property "HyperV*"
-    if($virtulisationcheck.HyperVRequirementDataExecutionPreventionAvailable -eq $True){Write-Host "Hyper-V Requirement Data Execution Prevention Available =" $virtulisationcheck.HyperVRequirementDataExecutionPreventionAvailable -Foregroundcolor Green}
-    else{Write-Host "Hyper-V Requirement Data Execution Prevention Available = " $virtulisationcheck.HyperVRequirementDataExecutionPreventionAvailable -Foregroundcolor Red}
+    do{
 
-    if($virtulisationcheck.HyperVRequirementSecondLevelAddressTranslation -eq $True){Write-Host "Hyper-V Requirement Second Level Address Translation =" $virtulisationcheck.HyperVRequirementSecondLevelAddressTranslation -Foregroundcolor Green}
-    else{Write-Host "Hyper-V Requirement Second Level Address Translation = " $virtulisationcheck.HyperVRequirementSecondLevelAddressTranslation -Foregroundcolor Red}
-    $virtulisationcheck = Get-ComputerInfo -property "HyperV*"
-    if($virtulisationcheck.HyperVRequirementVirtualizationFirmwareEnabled -eq $True){Write-Host "Hyper-V Requirement Virtualization Firmware Enabled =" $virtulisationcheck.HyperVRequirementVirtualizationFirmwareEnabled -Foregroundcolor Green}
-    else{Write-Host "Hyper-V Requirement Virtualization Firmware Enabled = " $virtulisationcheck.HyperVRequirementVirtualizationFirmwareEnabled -Foregroundcolor Red}
+        $NVVM = Read-Host "Enter the name of the virtual machine you want to enable Nested Virtualisation for? Type 'Exit' to quit"
 
-    if($virtulisationcheck.HyperVRequirementVMMonitorModeExtensions -eq $True){Write-Host "Hyper-V Requirement VM Monitor Mode Extensions =" $virtulisationcheck.HyperVRequirementVMMonitorModeExtensions -Foregroundcolor Green}
-    else{Write-Host "Hyper-V Requirement VM Monitor Mode Extensions = " $virtulisationcheck.HyperVRequirementVMMonitorModeExtensions -Foregroundcolor Red}
-
-    if($virtulisationcheck.HyperVRequirementDataExecutionPreventionAvailable -eq $True -and
-            $virtulisationcheck.HyperVRequirementSecondLevelAddressTranslation -eq $True -and
-            $virtulisationcheck.HyperVRequirementVirtualizationFirmwareEnabled -eq $True -and
-            $virtulisationcheck.HyperVRequirementVMMonitorModeExtensions -eq $True){
-
-        Read-Host "Press Enter to begin installation"}
-    else{
-        Write-Warning "Minimum Requirements have not been met, please review the above and resolve before trying again"
-        Read-Host "Press enter to return to menu"
-
-    }
+        $VMlist = Get-VM
+        $matchingvm = $VMList | Where-Object { $_.Name -eq $NVVM}
 
 
+        if($matchingVM){Write- Host "Enabling Nested Virtualisation"
+        Set-VMProcessor -ExposeVirtualizationExtensions -VMName $matchingVM
+        Start-Sleep -Seconds 3
+        Write-Host "Nested Virtualisation has been enabled."
+        $vmnamecondition = $True }
 
+        elseif($NVVM -eq "Exit"){
+        $vmnamecondition = $True}
+    }while ($vmnamecondition -eq $false)
 }
